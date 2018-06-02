@@ -1,4 +1,4 @@
-ï»¿#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <string.h>
@@ -23,35 +23,64 @@ public:
 	Worker(char *N) : num(0), name(nullptr), year(0), salary(0)
 	{
 		//cout << "SuperPuperConstructor is working" << endl;
-		name = new(nothrow)char[strlen(N) + 1];
+		try {
+		name = new char[strlen(N) + 1];
+		}
+		catch (...) {
+			cout << "error! connot allocate memory" << endl;
+		}
 		strcpy(name, N);
 	};
 	Worker(int Num, char *N, int K, int M) : num(Num), name(nullptr), year(K), salary(M)
 	{
 		//cout << "MySuperPuperConstructor is working" << endl;
-		name = new(nothrow)char[strlen(N) + 1];
+		try {
+		name = new char[strlen(N) + 1];
+		}
+		catch (...) {
+			cout << "error! connot allocate memory" << endl;
+		}
 		strcpy(name, N);
 	};
 	~Worker() { delete[]name; };
 	Worker(Worker &other) : num(other.num), name(nullptr), year(other.year), salary(other.salary)
 	{
 		//cout << "Copy-constructor is working" << endl;
-		name = new(nothrow)char[strlen(other.name) + 1]; // Ð¸ Ñ‚ÑƒÑ‚ Ð’ÐÐ•Ð—ÐÐŸÐÐž ÑƒÑ‚ÐµÑ‡ÐºÐ° Ð¿Ð°Ð¼ÑÑ‚Ð¸ !!!!
-		strcpy(name, other.name); 
+		try {
+			name = new char[strlen(other.name) + 1]; // è òóò ÂÍÅÇÀÏÍÎ óòå÷êà ïàìÿòè !!!!
+		}
+		catch (...) {
+			cout << "error! connot allocate memory" << endl;
+		}
+		strcpy(name, other.name);
 	};
 	void operator= (const Worker &other)
 	{
 		//cout << "Operator = is working" << endl;
 		if (this == &other) return;
 		delete[]name;
-		name = new(nothrow)char[strlen(other.name) + 1];
+		try {
+		name = new char[strlen(other.name) + 1];
+		}
+		catch (...) {
+			cout << "error! connot allocate memory" << endl;
+		}
 		strcpy(name, other.name);
 		num = other.num;
 		year = other.year;
 		salary = other.salary;
 	};
 	void setnum(int Num) { num = Num; };
-	void setname(char* str) { delete[]name; name = new(nothrow)char[strlen(str) + 1]; strcpy((*this).name, str); };
+	void setname(char* str) { 
+		delete[]name; 
+		try {
+			name = new char[strlen(str) + 1];
+		}
+		catch (...) {
+			cout << "error! cannot allocate memory" << endl;
+		}
+		strcpy((*this).name, str); 
+	};
 	void setyear(int K) { year = K; };
 	void setsalary(int M) { salary = M; };
 
@@ -73,7 +102,7 @@ void printWorker(Worker T[], int N) {
 }
 
 void randWorker(Worker T[], int N) {
-	char * names[12] = { "ÐÑ€Ð±Ð°Ð¹Ñ‚Ð¾Ð²", "ÐÑ€Ð±Ð°Ð¹Ñ‚Ð¾Ð²Ð¸Ñ‡", "ÐÑ€Ð±Ð°Ð¹Ñ‚Ð¸Ñ†Ñ‹Ð½", "Ð’Ð¾Ñ€ÐºÐµÑ€Ð¾Ð²Ð¸Ñ‡", "Ð’Ð¾Ñ€ÐºÐ¸Ð½", "Ð’Ð¾Ñ€ÐºÐµÑ€Ñ†Ð¾Ð²", "Ð Ð°Ð±Ð¾Ñ‚Ð½Ð¸ÐºÐ¾Ð²", "Ð Ð°Ð±Ð¾Ñ‚Ð¸Ð½", "Ð Ð°Ð±Ð¾Ñ‚Ð½Ð¸ÐºÐ¾ÑˆÐ²Ð¸Ð»Ð¸", "Ð¢Ñ€Ð°Ð±Ð°Ñ…Ð°Ð¹Ñ‚ÐµÑ€", "Ð¢Ñ€Ð°Ð±Ð°Ñ…Ð¾Ð²Ð¸Ñ‡", "Ð¢Ñ€Ð°Ð±Ð°Ñ…Ð¸Ð½" };
+	char * names[12] = { "Àðáàéòîâ", "Àðáàéòîâè÷", "Àðáàéòèöûí", "Âîðêåðîâè÷", "Âîðêèí", "Âîðêåðöîâ", "Ðàáîòíèêîâ", "Ðàáîòèí", "Ðàáîòíèêîøâèëè", "Òðàáàõàéòåð", "Òðàáàõîâè÷", "Òðàáàõèí" };
 	for (int i = 0; i < N; i++) {
 		T[i].setnum(i);
 		T[i].setname(names[rand() % 12]);
@@ -118,32 +147,32 @@ int main() {
 	setlocale(LC_ALL, "ru");
 	const int N = 10;
 	Worker Grisha;
-	Worker Barv("Ð¡ÐµÑ€Ð¶");
-	Worker Denis(100, "Ð”ÐµÐ½Ð¸Ñ", 1999, 96);
+	Worker Barv("Ñåðæ");
+	Worker Denis(100, "Äåíèñ", 1999, 96);
 	Worker gr9[N];
 
 	randWorker(gr9, N);
-	cout << "Ð¡Ð¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ¸ 9 Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹:" << endl;
+	cout << "Ñîòðóäíèêè 9 ãðóïïû:" << endl;
 	printWorker(gr9, N);
 	cout << endl;
 
 	gr9[0] = Denis;
-	cout << "Ð”Ð¾    "; 
+	cout << "Äî    ";
 	printWorker(Denis);
-	Denis.setname("ÐšÑ€Ð¸ÑÐµÐ²Ð¸Ñ‡");
+	Denis.setname("Êðèñåâè÷");
 	Denis.setsalary(100);
-	cout << "ÐŸÐ¾ÑÐ»Ðµ ";
+	cout << "Ïîñëå ";
 	printWorker(Denis);
 	cout << endl;
 
-	cout << "Ð¡Ð¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸Ðº Ñ Ð½Ð°Ð¸Ð±Ð¾Ð»ÑŒÑˆÐµÐ¹ Ð·Ð°Ñ€Ð¿Ð»Ð°Ñ‚Ð¾Ð¹:" << endl;
+	cout << "Ñîòðóäíèê ñ íàèáîëüøåé çàðïëàòîé:" << endl;
 	printWorker(findRichest(gr9, N));
 	cout << endl;
 
-	cout << "Ð¡Ñ€ÐµÐ´Ð½ÑÑ Ð·Ð°Ñ€Ð¿Ð»Ð°Ñ‚Ð° ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ°:" << endl;
+	cout << "Ñðåäíÿÿ çàðïëàòà ñîòðóäíèêà:" << endl;
 	cout << averageSalary(gr9, N) << endl << endl;
 
-	cout << "Ð¡Ð¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ¸ 9 Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹ Ð¾Ñ‚ÑÐ¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ðµ Ð¿Ð¾ Ð²Ð¾Ð·Ñ€Ð°ÑÑ‚Ñƒ:" << endl;
+	cout << "Ñîòðóäíèêè 9 ãðóïïû îòñîðòèðîâàííûå ïî âîçðàñòó:" << endl;
 	sortByAge(gr9, N);
 	printWorker(gr9, N);
 	cout << endl;

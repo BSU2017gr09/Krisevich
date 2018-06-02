@@ -1,4 +1,4 @@
-Ôªø#include <iostream>
+#include <iostream>
 #include <string.h>
 using namespace std;
 
@@ -11,30 +11,38 @@ private:
 	int year;
 public:
 	// Great 4
-	Date() : day(1), month(1), year(1) { }; //—Å—Ç—Ä–∞–Ω–Ω–æ–≤–∞—Ç–æ, —á—Ç–æ –∏–º–µ–Ω–Ω–æ 1, –Ω–æ —è –Ω–µ –Ω–∞—Å—Ç–∞–∏–≤–∞—é....
+	Date() : day(0), month(0), year(0) { };
 	Date(int D, int M, int Y) :day(D), month(M), year(Y) {  };
 	~Date() {};
 	Date(Date &other) : day(other.day), month(other.month), year(other.year) {  };
-	void operator= (const Date &other) // –∞ –ø–æ—á–µ–º—É void???
-	{
+	Date& operator= (const Date &other)
+	{	
 		cout << "operator = is working" << endl;
-		day = other.day;
-		month = other.month;
-		year = other.year;
+		if (this == &other) {
+			return *this;
+		}
+		else {
+			day = other.day;
+			month = other.month;
+			year = other.year;
+		}
+		
+		
 	};
 
 	int operator- (Date &other) {
-		int days, leap;
+		int days;
 		days = year - other.year;
-		days = days / 4 + days* 365;
+		days = days / 4 + days * 365;
 		days += (*this).daysFromNewYear();
 		days -= other.daysFromNewYear();
 		return days;
 	}
 
 	int daysFromNewYear()
-	{	// –£—Å–ª–æ–≤–∏–µ if ((*this).year- ((*this).year/ 4) * 4 == 0) –∑–∞–ø–∏—Å–∞–Ω–æ –î–ï–°–Ø–¢–¨ —Ä–∞–∑!!!! –ß—Ç–æ –∑–∞ –≥–æ–≤–Ω–æ–∫–æ–¥???? –ù–µ—É–∂–µ–ª–∏ –Ω–µ–ª—å–∑—è 1 —Ä–∞–∑ –µ–≥–æ –∏—Å–ø–æ–ª—å–∑–æ–≤–∞—Ç—å?????
+	{	
 		int days;
+		if ((*this).year - ((*this).year / 4) * 4 == 0 && (*this).month > 2) days += 1;
 		switch ((*this).month)
 		{
 		case 1:
@@ -44,50 +52,40 @@ public:
 			days = 31 + (*this).day;
 			break;
 		case 3:
-			if ((*this).year- ((*this).year/ 4) * 4 == 0)days = (*this).day + 60;
-			else days = 59 + (*this).day;
+			days = 59 + (*this).day;
 			break;
 		case 4:
-			if ((*this).year- ((*this).year/ 4) * 4 == 0)days = 91 + (*this).day;
-			else days = 90 + (*this).day;
+			days = 90 + (*this).day;
 			break;
 		case 5:
-			if ((*this).year- ((*this).year/ 4) * 4 == 0) days = 121 + (*this).day;
-			else days = 120 + (*this).day;
+			days = 120 + (*this).day;
 			break;
 		case 6:
-			if ((*this).year- ((*this).year/ 4) * 4 == 0) days = 152 + (*this).day;
-			else days = 151 + (*this).day;
+			days = 151 + (*this).day;
 			break;
 		case 7:
-			if ((*this).year- ((*this).year/ 4) * 4 == 0) days = 182 + (*this).day;
-			else days = 181 + (*this).day;
+			days = 181 + (*this).day;
 			break;
 		case 8:
-			if ((*this).year- ((*this).year/ 4) * 4 == 0) days = 213 + (*this).day;
-			else days = 212 + (*this).day;
+			days = 212 + (*this).day;
 			break;
 		case 9:
-			if ((*this).year- ((*this).year/ 4) * 4 == 0) days = 244 + (*this).day;
-			else days = 243 + (*this).day;
+			days = 243 + (*this).day;
 			break;
 		case 10:
-			if ((*this).year- ((*this).year/ 4) * 4 == 0) days = 274 + (*this).day;
-			else days = 273 + (*this).day;
+			days = 273 + (*this).day;
 			break;
 		case 11:
-			if ((*this).year- ((*this).year/ 4) * 4 == 0) days = 305 + (*this).day;
-			else days = 304 + (*this).day;
+			days = 304 + (*this).day;
 			break;
 		case 12:
-			if ((*this).year- ((*this).year/ 4) * 4 == 0) days = 335 + (*this).day;
-			else days = 334 + (*this).day;
+			days = 334 + (*this).day;
 			break;
 		}
 		return days;
 	}
-		
-		
+
+
 
 	void setday(int D) { day = D; };
 	void setmonth(int M) { month = M; };
@@ -107,20 +105,22 @@ void printDate(Date t) {
 	cout << t.getmonth() << "." << t.getyear() << endl;
 }
 
-void printMonth(Date t) { //TODO   –ø–µ—Ä–µ–ø–∏—Å–∞—Ç—å, –∏—Å–ø–æ–ª—å–∑—É—è enum!!!
+void printMonth(Date t) { //TODO   ÔÂÂÔËÒ‡Ú¸, ËÒÔÓÎ¸ÁÛˇ enum!!!
+	enum monthList { jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec};
+	
 	switch (t.getmonth()) {
-	case 1: { cout << "—è–Ω–≤–∞—Ä—å" << endl; break; }
-	case 2: { cout << "—Ñ–µ–≤—Ä–∞–ª—å" << endl; break; }
-	case 3: { cout << "–º–∞—Ä—Ç" << endl; break; }
-	case 4: { cout << "–∞–ø—Ä–µ–ª—å" << endl; break; }
-	case 5: { cout << "–º–∞–π" << endl; break; }
-	case 6: { cout << "–∏—é–Ω—å" << endl; break; }
-	case 7: { cout << "–∏—é–ª—å" << endl; break; }
-	case 8: { cout << "–∞–≤–≥—É—Å—Ç" << endl; break; }
-	case 9: { cout << "—Å–µ–Ω—Ç—è–±—Ä—å" << endl; break; }
-	case 10: { cout << "–æ–∫—Ç—è–±—Ä—å" << endl; break; }
-	case 11: { cout << "–Ω–æ—è–±—Ä—å" << endl; break; }
-	case 12: { cout << "–¥–µ–∫–∞–±—Ä—å" << endl; break; }
+	case 1: { cout << "ˇÌ‚‡¸" << endl; break; }
+	case 2: { cout << "ÙÂ‚‡Î¸" << endl; break; }
+	case 3: { cout << "Ï‡Ú" << endl; break; }
+	case 4: { cout << "‡ÔÂÎ¸" << endl; break; }
+	case 5: { cout << "Ï‡È" << endl; break; }
+	case 6: { cout << "Ë˛Ì¸" << endl; break; }
+	case 7: { cout << "Ë˛Î¸" << endl; break; }
+	case 8: { cout << "‡‚„ÛÒÚ" << endl; break; }
+	case 9: { cout << "ÒÂÌÚˇ·¸" << endl; break; }
+	case 10: { cout << "ÓÍÚˇ·¸" << endl; break; }
+	case 11: { cout << "ÌÓˇ·¸" << endl; break; }
+	case 12: { cout << "‰ÂÍ‡·¸" << endl; break; }
 	}
 }
 
@@ -129,14 +129,14 @@ void printDay(Date t) {
 	int y = t.getyear() - a;
 	int m = t.getmonth() + 12 * a - 2;
 	int day = (t.getday() + y + y / 4 - y / 100 + y / 400 + (31 * m) / 12) % 7;
-	switch (day) { //TODO   –ø–µ—Ä–µ–ø–∏—Å–∞—Ç—å, –∏—Å–ø–æ–ª—å–∑—É—è enum!!!
-	case 0: { cout << "–≤–æ—Å–∫—Ä–µ—Å–µ–Ω—å–µ" << endl; break; }
-	case 1: { cout << "–ø–æ–Ω–µ–¥–µ–ª—å–Ω–∏–∫" << endl; break; }
-	case 2: { cout << "–≤—Ç–æ—Ä–Ω–∏–∫" << endl; break; }
-	case 3: { cout << "—Å—Ä–µ–¥–∞" << endl; break; }
-	case 4: { cout << "—á–µ—Ç–≤–µ—Ä–≥" << endl; break; }
-	case 5: { cout << "–ø—è—Ç–Ω–∏—Ü–∞" << endl; break; }
-	case 6: { cout << "—Å—É–±–±–æ—Ç–∞" << endl; break; }
+	switch (day) { //TODO   ÔÂÂÔËÒ‡Ú¸, ËÒÔÓÎ¸ÁÛˇ enum!!!
+	case 0: { cout << "‚ÓÒÍÂÒÂÌ¸Â" << endl; break; }
+	case 1: { cout << "ÔÓÌÂ‰ÂÎ¸ÌËÍ" << endl; break; }
+	case 2: { cout << "‚ÚÓÌËÍ" << endl; break; }
+	case 3: { cout << "ÒÂ‰‡" << endl; break; }
+	case 4: { cout << "˜ÂÚ‚Â„" << endl; break; }
+	case 5: { cout << "ÔˇÚÌËˆ‡" << endl; break; }
+	case 6: { cout << "ÒÛ··ÓÚ‡" << endl; break; }
 	}
 }
 
@@ -147,7 +147,7 @@ int main() {
 	Date holyday;
 	Date today(17, 04, 2018);
 	Date session(04, 06, 2018);
-	cout <<"–î–Ω–µ–π –¥–æ —Å–µ—Å—Å–∏–∏: "<< session - today<<endl;
+	cout << "ƒÌÂÈ ‰Ó ÒÂÒÒËË: " << session - today << endl;
 	printDate(birthday);
 	printDate(holyday);
 	holyday = birthday;
