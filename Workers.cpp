@@ -47,7 +47,7 @@ public:
 	{
 		//cout << "Copy-constructor is working" << endl;
 		try {
-			name = new char[strlen(other.name) + 1]; // Ë ÚÛÚ ¬Õ≈«¿œÕŒ ÛÚÂ˜Í‡ Ô‡ÏˇÚË !!!!
+			name = new char[strlen(other.name) + 1]; // √® √≤√≥√≤ √Ç√ç√Ö√á√Ä√è√ç√é √≥√≤√•√∑√™√† √Ø√†√¨√ø√≤√® !!!!
 		}
 		catch (...) {
 			cout << "error! connot allocate memory" << endl;
@@ -95,14 +95,14 @@ void printWorker(Worker t) {
 	cout << setw(4) << left << t.getnum() << " " << setw(20) << left << t.getname() << " " << t.getyear() << " " << t.getsalary() << endl;
 }
 
-void printWorker(Worker T[], int N) {
+void printWorker(Worker T[], int N) { // –ó–∞—á–µ–º —ç—Ç–æ –≤ –∫–ª–∞—Å—Å–µ —Ç–æ????
 	for (int i = 0; i < N; i++) {
 		cout << setw(4) << left << T[i].getnum() << " " << setw(20) << left << T[i].getname() << " " << T[i].getyear() << " " << T[i].getsalary() << endl;
 	}
 }
 
-void randWorker(Worker T[], int N) {
-	char * names[12] = { "¿·‡ÈÚÓ‚", "¿·‡ÈÚÓ‚Ë˜", "¿·‡ÈÚËˆ˚Ì", "¬ÓÍÂÓ‚Ë˜", "¬ÓÍËÌ", "¬ÓÍÂˆÓ‚", "–‡·ÓÚÌËÍÓ‚", "–‡·ÓÚËÌ", "–‡·ÓÚÌËÍÓ¯‚ËÎË", "“‡·‡ı‡ÈÚÂ", "“‡·‡ıÓ‚Ë˜", "“‡·‡ıËÌ" };
+void randWorker(Worker T[], int N) { // –ó–∞—á–µ–º —ç—Ç–æ –≤ –∫–ª–∞—Å—Å–µ —Ç–æ????
+	char * names[12] = { "√Ä√∞√°√†√©√≤√Æ√¢", "√Ä√∞√°√†√©√≤√Æ√¢√®√∑", "√Ä√∞√°√†√©√≤√®√∂√ª√≠", "√Ç√Æ√∞√™√•√∞√Æ√¢√®√∑", "√Ç√Æ√∞√™√®√≠", "√Ç√Æ√∞√™√•√∞√∂√Æ√¢", "√ê√†√°√Æ√≤√≠√®√™√Æ√¢", "√ê√†√°√Æ√≤√®√≠", "√ê√†√°√Æ√≤√≠√®√™√Æ√∏√¢√®√´√®", "√í√∞√†√°√†√µ√†√©√≤√•√∞", "√í√∞√†√°√†√µ√Æ√¢√®√∑", "√í√∞√†√°√†√µ√®√≠" };
 	for (int i = 0; i < N; i++) {
 		T[i].setnum(i);
 		T[i].setname(names[rand() % 12]);
@@ -111,7 +111,7 @@ void randWorker(Worker T[], int N) {
 	}
 }
 
-Worker findRichest(Worker T[], int N) {
+Worker findRichest(Worker T[], int N) { // –ó–∞—á–µ–º —ç—Ç–æ –≤ –∫–ª–∞—Å—Å–µ —Ç–æ????
 	int richest = 0;
 	for (int i = 1; i < N; i++) {
 		if (T[i].getsalary() > T[richest].getsalary()) {
@@ -121,7 +121,7 @@ Worker findRichest(Worker T[], int N) {
 	return T[richest];
 }
 
-int averageSalary(Worker T[], int N) {
+int averageSalary(Worker T[], int N) { // –ó–∞—á–µ–º —ç—Ç–æ –≤ –∫–ª–∞—Å—Å–µ —Ç–æ????
 	int tmp = 0;
 	for (int i = 1; i < N; i++) {
 		tmp += T[i].getsalary();
@@ -129,7 +129,7 @@ int averageSalary(Worker T[], int N) {
 	return tmp / N;
 }
 
-void sortByAge(Worker T[], int N) {
+void sortByAge(Worker T[], int N) { // –ó–∞—á–µ–º —ç—Ç–æ –≤ –∫–ª–∞—Å—Å–µ —Ç–æ????
 	bool sorted = false;
 	while (!sorted) {
 		sorted = true;
@@ -143,36 +143,36 @@ void sortByAge(Worker T[], int N) {
 	}
 }
 
-int main() {
+int main() {//–≥–¥–µ –º–µ–Ω—é? –ì–¥–µ —Ñ–∞–π–ª—ã???
 	setlocale(LC_ALL, "ru");
 	const int N = 10;
 	Worker Grisha;
-	Worker Barv("—ÂÊ");
-	Worker Denis(100, "ƒÂÌËÒ", 1999, 96);
+	Worker Barv("√ë√•√∞√¶");
+	Worker Denis(100, "√Ñ√•√≠√®√±", 1999, 96);
 	Worker gr9[N];
 
 	randWorker(gr9, N);
-	cout << "—ÓÚÛ‰ÌËÍË 9 „ÛÔÔ˚:" << endl;
+	cout << "√ë√Æ√≤√∞√≥√§√≠√®√™√® 9 √£√∞√≥√Ø√Ø√ª:" << endl;
 	printWorker(gr9, N);
 	cout << endl;
 
 	gr9[0] = Denis;
-	cout << "ƒÓ    ";
+	cout << "√Ñ√Æ    ";
 	printWorker(Denis);
-	Denis.setname(" ËÒÂ‚Ë˜");
+	Denis.setname("√ä√∞√®√±√•√¢√®√∑");
 	Denis.setsalary(100);
-	cout << "œÓÒÎÂ ";
+	cout << "√è√Æ√±√´√• ";
 	printWorker(Denis);
 	cout << endl;
 
-	cout << "—ÓÚÛ‰ÌËÍ Ò Ì‡Ë·ÓÎ¸¯ÂÈ Á‡ÔÎ‡ÚÓÈ:" << endl;
+	cout << "√ë√Æ√≤√∞√≥√§√≠√®√™ √± √≠√†√®√°√Æ√´√º√∏√•√© √ß√†√∞√Ø√´√†√≤√Æ√©:" << endl;
 	printWorker(findRichest(gr9, N));
 	cout << endl;
 
-	cout << "—Â‰Ìˇˇ Á‡ÔÎ‡Ú‡ ÒÓÚÛ‰ÌËÍ‡:" << endl;
+	cout << "√ë√∞√•√§√≠√ø√ø √ß√†√∞√Ø√´√†√≤√† √±√Æ√≤√∞√≥√§√≠√®√™√†:" << endl;
 	cout << averageSalary(gr9, N) << endl << endl;
 
-	cout << "—ÓÚÛ‰ÌËÍË 9 „ÛÔÔ˚ ÓÚÒÓÚËÓ‚‡ÌÌ˚Â ÔÓ ‚ÓÁ‡ÒÚÛ:" << endl;
+	cout << "√ë√Æ√≤√∞√≥√§√≠√®√™√® 9 √£√∞√≥√Ø√Ø√ª √Æ√≤√±√Æ√∞√≤√®√∞√Æ√¢√†√≠√≠√ª√• √Ø√Æ √¢√Æ√ß√∞√†√±√≤√≥:" << endl;
 	sortByAge(gr9, N);
 	printWorker(gr9, N);
 	cout << endl;
